@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "441803205158",
+    "project_id": "imentor-5a846",
+    "storage_bucket": "imentor-5a846.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:441803205158:android:314eca391fa8e20fa9d4e7",
+        "android_client_info": {
+          "package_name": "com.example.imentor"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTurGPEnkt9GOp9okBv3g0VMCxp2OtgcY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
