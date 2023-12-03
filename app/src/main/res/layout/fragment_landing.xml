@@ -41,6 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="23dp"
+        app:backgroundTint="@color/primary"
         android:shadowColor="@color/primary"
         android:text="Giriş Yap"
         android:textColor="@color/white"
@@ -56,6 +57,7 @@
     <Button
         android:id="@+id/register"
         android:layout_width="wrap_content"
+        app:backgroundTint="@color/primary"
         android:layout_height="wrap_content"
         android:layout_marginBottom="41dp"
         android:text="Kayıt Ol"
