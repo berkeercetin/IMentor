@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="79dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="9dp"
         android:fontFamily="@font/poppins_semibold"
         android:text="KAYIT OL"
         android:textColor="@color/primary"
@@ -39,7 +39,7 @@
         android:layout_height="0dp"
         android:layout_marginStart="33dp"
         android:layout_marginEnd="33dp"
-        android:layout_marginBottom="11dp"
+        android:layout_marginBottom="10dp"
         android:fontFamily="@font/poppins_semibold"
         android:gravity="center"
         android:text="Hesabınızı oluşturun ve hedeflerinize en kısa sürede ulaşın."
@@ -86,12 +86,12 @@
         android:hint="İsim"
         android:inputType="text"
         android:textColorHint="@color/primaryhint"
-        app:layout_constraintBottom_toTopOf="@+id/editTextText3"
+        app:layout_constraintBottom_toTopOf="@+id/surnameRegister"
         app:layout_constraintStart_toStartOf="@+id/editTextTextEmailAddress"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress" />
 
     <EditText
-        android:id="@+id/editTextText3"
+        android:id="@+id/surnameRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
@@ -109,15 +109,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
-        android:layout_marginBottom="34dp"
+        android:layout_marginBottom="33dp"
         android:background="@drawable/edittextberke"
         android:ems="10"
         android:hint="Şifre"
         android:inputType="textPassword"
         android:textColorHint="@color/primaryhint"
         app:layout_constraintBottom_toTopOf="@+id/editTextTextPassword2"
-        app:layout_constraintStart_toStartOf="@+id/editTextText3"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText3" />
+        app:layout_constraintStart_toStartOf="@+id/surnameRegister"
+        app:layout_constraintTop_toBottomOf="@+id/surnameRegister" />
 
     <EditText
         android:id="@+id/editTextTextPassword2"

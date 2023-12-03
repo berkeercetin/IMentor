@@ -8,13 +8,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.example.imentor.MainActivity
 import com.example.imentor.R
+import com.example.imentor.auth.services.concrates.AuthManager
 import com.example.imentor.interfaces.HideToolbarInterface
+import com.google.android.gms.auth.api.identity.BeginSignInRequest
+import com.google.android.gms.auth.api.identity.Identity
+import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
@@ -26,12 +31,26 @@ import com.google.firebase.auth.auth
  */
 class LoginFragment : Fragment(), HideToolbarInterface {
     // TODO: Rename and change types of parameters
-
+    private lateinit var oneTapClient: SignInClient
+    private lateinit var signInRequest: BeginSignInRequest
     private lateinit var auth: FirebaseAuth;
+    val authService = AuthManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
+
+        oneTapClient = Identity.getSignInClient(requireActivity())
+        signInRequest = BeginSignInRequest.builder()
+            .setGoogleIdTokenRequestOptions(
+                BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
+                    .setSupported(true)
+                    // Your server's client ID, not your Android client ID.
+                    .setServerClientId(getString(R.string.default_web_client_id))
+                    // Only show accounts previously used to sign in.
+                    .setFilterByAuthorizedAccounts(true)
+                    .build())
+            .build()
 
     }
 
@@ -51,41 +70,46 @@ class LoginFragment : Fragment(), HideToolbarInterface {
         val buttonlogin = view.findViewById<Button>(R.id.buttonlogin)
         val emailEditText = view.findViewById<EditText>(R.id.editTextTextEmailAddressLogin)
         val passwordEditText = view.findViewById<EditText>(R.id.editTextTextPasswordLogin)
-
+        val forgotPassword = view.findViewById<TextView>(R.id.textView8)
+        val register = view.findViewById<TextView>(R.id.textView9)
+        val google = view.findViewById<Button>(R.id.button2)
+        google.setOnClickListener{
+            loginGoogle()
+        }
         buttonlogin.setOnClickListener {
-            Toast.makeText(
-                requireContext(),
-                emailEditText.text.toString(),
-                Toast.LENGTH_SHORT,
-            ).show()
-            Toast.makeText(
-                requireContext(),
-                passwordEditText.text.toString(),
-                Toast.LENGTH_SHORT,
-            ).show()
-            auth.signInWithEmailAndPassword(emailEditText.text.toString(), passwordEditText.text.toString())
-                .addOnCompleteListener(requireActivity()) { task ->
-                    if (task.isSuccessful) {
-                        Toast.makeText(
-                            requireContext(),
-                            "Authentication Success.",
-                            Toast.LENGTH_SHORT,
-                        ).show()
-                        val action =
-                            LoginFragmentDirections.actionLoginFragmentToHomeFragment()
-                        Navigation.findNavController(requireActivity(), R.id.fragmentContainerView).navigate(action)
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        Log.w(ContentValues.TAG, "signInWithEmail:failure", task.exception)
-                        Toast.makeText(
-                            requireContext(),
-                            "Authentication failed.",
-                            Toast.LENGTH_SHORT,
-                        ).show()
-                      //  updateUI(null)
-                    }
-                }
+            login(emailEditText.text.toString(),passwordEditText.text.toString())
+        }
+        forgotPassword.setOnClickListener {
+            val action =  LoginFragmentDirections.actionLoginFragmentToForgotPasswordFragment()
+            Navigation.findNavController(requireActivity(), R.id.fragmentContainerView).navigate(action)
+        }
+        register.setOnClickListener {
+            val action =  LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
+            Navigation.findNavController(requireActivity(), R.id.fragmentContainerView).navigate(action)
         }
 
+    }
+
+
+
+    private fun login(email:String, password:String){
+        authService.login(email,password)
+            .addOnSuccessListener {
+                val action =  LoginFragmentDirections.actionLoginFragmentToHomeFragment()
+                Navigation.findNavController(requireActivity(), R.id.fragmentContainerView).navigate(action)
+            }
+            .addOnFailureListener{
+                Toast.makeText(requireContext(),it.message.toString(),Toast.LENGTH_SHORT).show()
+            }
+
+    }
+
+
+    private fun loginGoogle(){
+
+        authService.signInWithGoogle().addOnSuccessListener {
+            Toast.makeText(requireContext(),"Basarılı",Toast.LENGTH_SHORT).show()
+
+        }
     }
 }
