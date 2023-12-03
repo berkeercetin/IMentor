@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">IMentor</string>
     <!-- TODO: Remove or change this placeholder text -->
+    <string name="navigation_drawer_open">Menüyü aç</string>
+    <string name="navigation_drawer_close">Menüyü kapat</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
