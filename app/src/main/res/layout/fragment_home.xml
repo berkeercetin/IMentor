@@ -7,12 +7,11 @@
     tools:context=".main.HomeFragment">
 
 
-    <CalendarView
-        android:id="@+id/calendarView"
-        android:layout_width="215dp"
-        android:layout_height="181dp"
-        android:layout_marginStart="120dp"
-        android:layout_marginTop="160dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+ <androidx.recyclerview.widget.RecyclerView
+     android:id="@+id/homeLoopRecyclerView"
+     android:layout_marginTop="32dp"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent">
+
+ </androidx.recyclerview.widget.RecyclerView>
 </androidx.constraintlayout.widget.ConstraintLayout>

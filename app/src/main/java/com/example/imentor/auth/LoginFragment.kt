@@ -1,5 +1,6 @@
 package com.example.imentor.auth
 
+import GlobalService
 import android.content.ContentValues
 import android.os.Bundle
 import android.util.Log
@@ -34,7 +35,7 @@ class LoginFragment : Fragment(), HideToolbarInterface {
     private lateinit var oneTapClient: SignInClient
     private lateinit var signInRequest: BeginSignInRequest
     private lateinit var auth: FirebaseAuth;
-    val authService = AuthManager()
+    private val authService = AuthManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,6 +96,7 @@ class LoginFragment : Fragment(), HideToolbarInterface {
     private fun login(email:String, password:String){
         authService.login(email,password)
             .addOnSuccessListener {
+               GlobalService.userId = it.user?.uid.toString()
                 val action =  LoginFragmentDirections.actionLoginFragmentToHomeFragment()
                 Navigation.findNavController(requireActivity(), R.id.fragmentContainerView).navigate(action)
             }
