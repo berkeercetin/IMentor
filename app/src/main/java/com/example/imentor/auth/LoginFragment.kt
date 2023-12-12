@@ -1,9 +1,7 @@
 package com.example.imentor.auth
 
 import GlobalService
-import android.content.ContentValues
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,13 +15,17 @@ import androidx.navigation.Navigation
 import com.example.imentor.MainActivity
 import com.example.imentor.R
 import com.example.imentor.auth.services.concrates.AuthManager
+import com.example.imentor.entities.User
 import com.example.imentor.interfaces.HideToolbarInterface
+import com.example.imentor.services.concrates.UserManager
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.identity.SignInClient
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
+
 
 /**
  * A simple [Fragment] subclass.
@@ -36,7 +38,7 @@ class LoginFragment : Fragment(), HideToolbarInterface {
     private lateinit var signInRequest: BeginSignInRequest
     private lateinit var auth: FirebaseAuth;
     private val authService = AuthManager()
-
+    private val userService = UserManager()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
@@ -97,11 +99,21 @@ class LoginFragment : Fragment(), HideToolbarInterface {
         authService.login(email,password)
             .addOnSuccessListener {
                GlobalService.userId = it.user?.uid.toString()
+                val navView = view?.findViewById<NavigationView>(R.id.nav_view)
+                userService.getUser(GlobalService.userId).addOnSuccessListener {
+                        result ->
+                    GlobalService.user =result.toObject(User::class.java)
+                    val mainActivity = activity as MainActivity?
+                    mainActivity?.setNavHeader(result.toObject(User::class.java)!!)
+
+                }
                 val action =  LoginFragmentDirections.actionLoginFragmentToHomeFragment()
                 Navigation.findNavController(requireActivity(), R.id.fragmentContainerView).navigate(action)
             }
             .addOnFailureListener{
                 Toast.makeText(requireContext(),it.message.toString(),Toast.LENGTH_SHORT).show()
+
+
             }
 
     }

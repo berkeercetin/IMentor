@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Diğer kaynaklar -->
+
+    <array name="category_array">
+        <item>Eğitim</item>
+        <item>Kariyer</item>
+        <item>Sağlık</item>
+        <!-- Diğer kategorileri ekleyebilirsiniz -->
+    </array>
+
+</resources>

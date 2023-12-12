@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".main.AddTask">
+
+
+    <Button
+        android:id="@+id/buttonRegisterFirestore3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginBottom="74dp"
+        android:text="Ekle"
+        app:backgroundTint="@color/primary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/extraInputsLayout" />
+
+    <EditText
+        android:id="@+id/editTextName3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="11dp"
+        android:background="@drawable/edittextberke"
+        android:ems="10"
+        android:hint="İsim"
+        android:inputType="text"
+        android:textColorHint="@color/primaryhint"
+        app:layout_constraintBottom_toTopOf="@+id/categorySpinner"
+        app:layout_constraintStart_toStartOf="@+id/categorySpinner"
+        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="133dp"
+        android:layout_marginBottom="103dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Yeni Görev Ekle"
+        android:textColor="@color/primary"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toTopOf="@+id/editTextName3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <!-- Ek inputları içeren bir layout (başlangıçta görünmez) -->
+
+    <!-- Ek inputları içeren bir layout (başlangıçta görünmez) -->
+
+    <Spinner
+        android:id="@+id/categorySpinner"
+        android:layout_width="207dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="13dp"
+        android:entries="@array/category_array"
+        app:layout_constraintBottom_toTopOf="@+id/extraInputsLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextName3" />
+
+    <LinearLayout
+        android:id="@+id/extraInputsLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="17dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/buttonRegisterFirestore3"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/categorySpinner"
+        android:visibility="gone">
+
+        <!-- İlave input alanları -->
+        <EditText
+            android:id="@+id/editTextName3b"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/edittextberke"
+            android:ems="10"
+            android:hint="İsim"
+            android:inputType="text"
+            android:textColorHint="@color/primaryhint"
+            app:layout_constraintBottom_toTopOf="@+id/editTextName3a"
+            app:layout_constraintEnd_toEndOf="@+id/editTextName3a" />
+
+        <EditText
+            android:id="@+id/editTextName3a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="36dp"
+            android:background="@drawable/edittextberke"
+            android:ems="10"
+            android:hint="İsim"
+            android:inputType="text"
+            android:textColorHint="@color/primaryhint"
+
+            app:layout_constraintTop_toBottomOf="@+id/editTextName3b" />
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

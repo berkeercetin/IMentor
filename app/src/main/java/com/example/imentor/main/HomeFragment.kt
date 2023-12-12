@@ -8,17 +8,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imentor.MainActivity
 import com.example.imentor.R
+import com.example.imentor.entities.User
 import com.example.imentor.main.adapters.TaskAdapter
 import com.example.imentor.main.services.concrates.TaskManager
+import com.example.imentor.services.concrates.UserManager
+import com.google.android.material.navigation.NavigationView
 
 
 class HomeFragment : Fragment() {
-
+    private val userService = UserManager()
     private val taskService = TaskManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,10 +46,17 @@ class HomeFragment : Fragment() {
 
     @SuppressLint("Range")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        super.onViewCreated(view, savedInstanceState)
+            super.onViewCreated(view, savedInstanceState)
 
             val recyclerView = view.findViewById<RecyclerView>(R.id.homeLoopRecyclerView)!!
+            val fabButton = view.findViewById<com.google.android.material.floatingactionbutton.FloatingActionButton>(R.id.fabAdd)!!
+            fabButton.setOnClickListener {
+                val fragment = AddTask()
+                val transaction = requireActivity().supportFragmentManager.beginTransaction()
+                transaction.replace(R.id.fragmentContainerView, fragment)
+                transaction.addToBackStack(null)
+                transaction.commit()
+            }
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         taskService.listAllTasksByUser(GlobalService.userId).addOnSuccessListener {
             result ->
@@ -53,7 +66,7 @@ class HomeFragment : Fragment() {
             val taskList = result.documents.map { it -> it.data }
             if (taskList.isNotEmpty()) {
                 // Veriler mevcut, RecyclerView.Adapter'e aktarın
-                val adapter = TaskAdapter(taskList)
+                val adapter = TaskAdapter(taskList,requireContext())
                 recyclerView.adapter = adapter
                 adapter.notifyDataSetChanged()
 

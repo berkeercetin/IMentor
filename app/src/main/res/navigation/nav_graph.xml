@@ -55,6 +55,9 @@
         <action
             android:id="@+id/action_homeFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_addTask"
+            app:destination="@id/addTask" />
     </fragment>
     <fragment
         android:id="@+id/forgotPasswordFragment"
@@ -63,5 +66,14 @@
         <action
             android:id="@+id/action_forgotPasswordFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addTask"
+        android:name="com.example.imentor.main.AddTask"
+        android:label="fragment_add_task"
+        tools:layout="@layout/fragment_add_task" >
+        <action
+            android:id="@+id/action_addTask_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 </navigation>

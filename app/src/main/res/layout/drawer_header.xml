@@ -8,6 +8,7 @@
     android:padding="16dp">
 
     <TextView
+        android:id="@+id/navUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello, User"
@@ -15,6 +16,7 @@
         android:textColor="@color/white" />
 
     <TextView
+        android:id="@+id/navUserEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="user@example.com"

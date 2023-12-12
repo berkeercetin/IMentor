@@ -8,11 +8,21 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.example.imentor.main.services.concrates.TaskManager
+import com.example.imentor.services.concrates.UserManager
 import com.google.android.material.navigation.NavigationView
+import GlobalService
+import android.widget.TextView
+import com.example.imentor.R
+import com.example.imentor.entities.User
 
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
+
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -27,9 +37,11 @@ class MainActivity : AppCompatActivity() {
         // Navigation Drawer'ı ayarlama
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
+        navView.getHeaderView(0).findViewById<TextView>(R.id.navUserName).text = "aa"
+        navView.getHeaderView(0).findViewById<TextView>(R.id.navUserEmail).text = "bbb"
+
         val toggle = ActionBarDrawerToggle(
-            this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
-        )
+            this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close        )
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
@@ -53,7 +65,11 @@ class MainActivity : AppCompatActivity() {
             true
         }
     }
-
+    fun setNavHeader(user: User){
+        val navView: NavigationView = findViewById(R.id.nav_view)
+        navView.getHeaderView(0).findViewById<TextView>(R.id.navUserName).text = user.name
+        navView.getHeaderView(0).findViewById<TextView>(R.id.navUserEmail).text = user.email
+    }
 
     }
 
