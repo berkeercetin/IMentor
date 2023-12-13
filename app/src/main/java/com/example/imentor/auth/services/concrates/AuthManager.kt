@@ -40,5 +40,10 @@ class AuthManager {
         return auth.signInWithCredential(provider)
     }
 
+    fun logout() {
+        return auth.signOut()
+    }
+
+
 
 }

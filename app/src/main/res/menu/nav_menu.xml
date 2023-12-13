@@ -2,10 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="HardcodedText">
+    <item android:id="@+id/nav_home"
+        android:title="Anasayfa" />
     <item android:id="@+id/nav_account"
-        android:title="My Account" />
+        android:title="Profil" />
     <item android:id="@+id/nav_settings"
-        android:title="Settings" />
+        android:title="Ayarlar" />
+    <item android:id="@+id/nav_statics"
+        android:title="İstatistikler" />
     <item android:id="@+id/nav_logout"
-        android:title="Logout" />
+        android:title="Çıkış Yap" />
 </menu>
