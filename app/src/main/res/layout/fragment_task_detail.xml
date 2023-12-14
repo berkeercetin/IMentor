@@ -7,7 +7,7 @@
     tools:context=".main.TaskDetailFragment">
 
     <TextView
-        android:id="@+id/textView14"
+        android:id="@+id/taskDetailName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="53dp"
@@ -16,42 +16,42 @@
         android:text="TaskName"
         android:textColor="@color/primary"
         android:textSize="34sp"
-        app:layout_constraintEnd_toEndOf="@+id/textView13"
+        app:layout_constraintEnd_toEndOf="@+id/taskDetailExplanation"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="1dp"
+        android:layout_marginBottom="3dp"
         android:fontFamily="@font/poppins_semibold"
         android:text="Alt Görevler"
         android:textColor="@color/primary"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/recyclerViewDetail"
         app:layout_constraintStart_toStartOf="@+id/recyclerViewDetail"
-        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+        app:layout_constraintTop_toBottomOf="@+id/taskDetailCounter" />
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/taskDetailExplanation"
         android:layout_width="246dp"
         android:layout_height="0dp"
         android:layout_marginTop="109dp"
         android:fontFamily="@font/poppins"
         android:gravity="center"
         android:text="Günlük adım sayınızı 10.000 üzerinde tutatak sağlıklı kalın."
-        app:layout_constraintBottom_toTopOf="@+id/textView15"
+        app:layout_constraintBottom_toTopOf="@+id/taskDetailCounter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView15"
+        android:id="@+id/taskDetailCounter"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="68dp"
         android:layout_marginEnd="68dp"
-        android:layout_marginBottom="21dp"
+        android:layout_marginBottom="19dp"
         android:fontFamily="@font/poppins_semibold"
         android:gravity="center"
         android:text="2869/10000"
@@ -59,7 +59,7 @@
         app:layout_constraintBottom_toTopOf="@+id/textView16"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+        app:layout_constraintTop_toBottomOf="@+id/taskDetailExplanation" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewDetail"
@@ -70,7 +70,7 @@
         android:layout_marginEnd="13dp"
         android:layout_marginBottom="91dp"
         app:layout_constraintBottom_toTopOf="@+id/button4"
-        app:layout_constraintEnd_toEndOf="@+id/textView13"
+        app:layout_constraintEnd_toEndOf="@+id/taskDetailExplanation"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -78,19 +78,19 @@
         android:id="@+id/button3"
         android:layout_width="134dp"
         android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="202dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginBottom="203dp"
         android:text="Ekle"
         app:backgroundTint="@color/primary"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/recyclerViewDetail"
         app:layout_constraintTop_toBottomOf="@+id/recyclerViewDetail" />
 
     <Button
         android:id="@+id/button4"
         android:layout_width="118dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="108dp"
+        android:layout_marginBottom="109dp"
         android:text="Tamamla !"
         app:backgroundTint="@color/primary"
         app:layout_constraintBottom_toBottomOf="parent"

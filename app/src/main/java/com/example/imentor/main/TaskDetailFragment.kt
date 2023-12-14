@@ -7,35 +7,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imentor.R
 import com.example.imentor.main.adapters.TaskAdapter
+import com.example.imentor.main.entities.Task
 import com.example.imentor.main.services.concrates.TaskManager
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [TaskDetailFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class TaskDetailFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
     private val taskService = TaskManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
@@ -43,23 +30,25 @@ class TaskDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val data = arguments?.getString("taskID")
-        Toast.makeText(context, "Detail: $data", Toast.LENGTH_LONG).show()
-        try {
-                taskService.getTaskById(GlobalService.userId, data!!).addOnSuccessListener {
-                result ->
-                Toast.makeText(context, "Detail: ${result.data}", Toast.LENGTH_LONG).show()
-            }
-        } catch (e: Exception) {
-            Toast.makeText(context, "Detail: ${e.message}", Toast.LENGTH_LONG).show()
-        }
-
         return inflater.inflate(R.layout.fragment_task_detail, container, false)
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewDetail)!!
+        val taskDetailName = view.findViewById<com.google.android.material.textview.MaterialTextView>(R.id.taskDetailName)!!
+        val taskDetalExplantation = view.findViewById<com.google.android.material.textview.MaterialTextView>(R.id.taskDetailExplanation)!!
+        val taskDetailCounter = view.findViewById<com.google.android.material.textview.MaterialTextView>(R.id.taskDetailCounter)!!
+        val data = arguments?.getString("taskID")
+        try {
+            taskService.getTaskById(GlobalService.userId, data!!).addOnSuccessListener {
+                    result ->
+                taskDetailName.text = result.data?.get("name").toString()
+                taskDetalExplantation.text = result.data?.get("explantation").toString()
+                //taskDetailCounter.text = result.data?.get("counter").toString()
+            }
+        } catch (e: Exception) {
+            Toast.makeText(context, "Detail: ${e.message}", Toast.LENGTH_LONG).show()
+        }
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         arguments?.getString("taskID")?.let {
             taskService.listSubTasks(GlobalService.userId, it).addOnSuccessListener { result ->
