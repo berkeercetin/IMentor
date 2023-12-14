@@ -50,6 +50,7 @@ class AddTask : Fragment() {
         return inflater.inflate(com.example.imentor.R.layout.fragment_add_task, container, false)
     }
 
+    @SuppressLint("ClickableViewAccessibility", "CutPasteId")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val editTextTime = view.findViewById<EditText>(com.example.imentor.R.id.editTextStartTime)!!
@@ -74,7 +75,7 @@ class AddTask : Fragment() {
 
         val editTextTime2 = view.findViewById<EditText>(com.example.imentor.R.id.editTextEndTime)!!
         editTextTime2.setOnTouchListener(object : View.OnTouchListener {
-            @SuppressLint("ClickableViewAccessibility")
+            @SuppressLint("ClickableViewAccessibility", "SimpleDateFormat")
             override fun onTouch(v: View?, event: MotionEvent?): Boolean {
                 when (event?.action) {
                     MotionEvent.ACTION_DOWN -> {

@@ -3,9 +3,10 @@
     <!-- Diğer kaynaklar -->
 
     <array name="category_array">
-        <item>Eğitim</item>
-        <item>Kariyer</item>
+        <item>Adım</item>
+        <item>Egzersiz</item>
         <item>Sağlık</item>
+        <item>Kategori</item>
         <!-- Diğer kategorileri ekleyebilirsiniz -->
     </array>
     <!-- Reply Preference -->
