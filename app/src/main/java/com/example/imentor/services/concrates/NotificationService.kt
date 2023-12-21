@@ -1,8 +1,11 @@
 package com.example.imentor.services.concrates
 
+import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.Service
+import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.IBinder
 import android.util.Log
 import androidx.core.app.NotificationCompat
@@ -25,15 +28,35 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
             val title = it.title
             val body = it.body
             Log.i("DATA_MESSAGE", body.toString())
-            val notificationManager = getSystemService(NotificationManager::class.java)
-            val notification = NotificationCompat.Builder(this, App.FCM_CHANNEL_ID)
+            val builder = NotificationCompat.Builder(this, App.FCM_CHANNEL_ID)
+                .setSmallIcon(android.R.drawable.stat_notify_chat)
                 .setContentTitle(title.toString())
-                .setContentText(title.toString())
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
-                .build()
+                .setContentText(body.toString())
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
-            notificationManager.notify(1002, notification)
+            // Create a notification manager object
+            val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+            // Check if the device is running Android Oreo or higher
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                // Create a notification channel
+                val channel = NotificationChannel(App.FCM_CHANNEL_ID, "test", NotificationManager.IMPORTANCE_DEFAULT)
+                channel.description = "test"
+                // Register the channel with the system
+                notificationManager.createNotificationChannel(channel)
+            }
+            // To see the message in logcat
+            Log.i("Notify","$builder")
+            // Issue the notification
+            notificationManager.notify(1, builder.build())
+
+
         }
+
+
+
+
+
 
        // Log.i("DATA_MESSAGE", message.data.toString())
     }

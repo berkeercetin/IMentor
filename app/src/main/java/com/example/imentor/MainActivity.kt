@@ -37,8 +37,11 @@ class MainActivity : AppCompatActivity() {
         ActivityResultContracts.RequestPermission(),
     ) { isGranted: Boolean ->
         if (isGranted) {
+            Toast.makeText(this, "Notification permission granted", Toast.LENGTH_SHORT).show()
+
             // FCM SDK (and your app) can post notifications.
         } else {
+            Toast.makeText(this, "Notification permission denied", Toast.LENGTH_SHORT).show()
             // TODO: Inform user that that your app will not show notifications.
         }
     }
@@ -59,7 +62,7 @@ class MainActivity : AppCompatActivity() {
 
     private val authManager = AuthManager()
     override fun onCreate(savedInstanceState: Bundle?) {
-
+        askNotificationPermission()
 
 
         super.onCreate(savedInstanceState)
