@@ -2,6 +2,7 @@ package com.example.imentor.main.services.concrates
 
 import android.widget.Toast
 import com.example.imentor.entities.User
+import com.example.imentor.main.entities.SubTask
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
@@ -35,16 +36,16 @@ class TaskManager {
     }
 
     fun updateTask (uid: String, task: MyTask): Task<Void> {
-        return db.document("users/$uid/tasks/" + task.taskID).set(task)
+        return db.document("users/$uid/tasks/" + task.taskID).update("taskID", task.taskID,"name", task.name, "explantation", task.explantation, "startDateTime", task.startDateTime, "endDateTime", task.endDateTime, "interval", task.interval, "type", task.type, "complated", task.complated)
     }
 
     fun deleteTask (uid: String, taskID: String): Task<Void> {
         return db.document("users/$uid/tasks/$taskID").delete()
     }
 
-    fun addSubTask (uid: String, taskID: String, subTask: MyTask): Task<Void> {
-        subTask.taskID = db.collection("users/$uid/tasks/$taskID/subTasks").document().id
-        return db.document("users/$uid/tasks/$taskID/subTasks/" + subTask.taskID).set(subTask)
+    fun addSubTask (uid: String, taskID: String, subTask: SubTask): Task<Void> {
+        subTask.subTaskID = db.collection("users/$uid/tasks/$taskID/subTasks").document().id
+        return db.document("users/$uid/tasks/$taskID/subTasks/" + subTask.subTaskID).set(subTask)
     }
 
     fun updateSubTask (uid: String, taskID: String, subTask: MyTask): Task<Void> {

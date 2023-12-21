@@ -3,30 +3,29 @@ package com.example.imentor.main
 import GlobalService
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imentor.MainActivity
 import com.example.imentor.R
-import com.example.imentor.entities.User
 import com.example.imentor.main.adapters.TaskAdapter
+import com.example.imentor.main.entities.Task
 import com.example.imentor.main.services.concrates.TaskManager
 import com.example.imentor.services.concrates.UserManager
-import com.google.android.material.navigation.NavigationView
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 
 class HomeFragment : Fragment() {
     private val userService = UserManager()
     private val taskService = TaskManager()
-
+    private lateinit var tasks:List<Task>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -47,7 +46,6 @@ class HomeFragment : Fragment() {
     @SuppressLint("Range")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
-
             val recyclerView = view.findViewById<RecyclerView>(R.id.homeLoopRecyclerView)!!
             val fabButton = view.findViewById<com.google.android.material.floatingactionbutton.FloatingActionButton>(R.id.fabAdd)!!
             fabButton.setOnClickListener {
@@ -58,27 +56,23 @@ class HomeFragment : Fragment() {
                 transaction.commit()
             }
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        taskService.listAllTasksByUser(GlobalService.userId).addOnSuccessListener {
-            result ->
-            for (document in result) {
-                Log.d("TAG", document.data.toString())
-            }
-            val taskList = result.documents.map { it -> it.data }
-            if (taskList.isNotEmpty()) {
-                // Veriler mevcut, RecyclerView.Adapter'e aktarın
-                val adapter = TaskAdapter(taskList,requireContext())
+        lifecycleScope.launch {
+            try {
+                tasks = listTasks(GlobalService.userId)
+                val adapter = TaskAdapter(tasks,requireContext())
                 recyclerView.adapter = adapter
-                adapter.notifyDataSetChanged()
-
+                // Both tasks are completed
+            } catch (e: Exception) {
+                // Handle exceptions appropriately
+                Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_LONG).show()
             }
-            Log.e("TAG",taskList.size.toString())
         }
-            .addOnFailureListener { exception ->
-                Log.d("TAG", "Error getting documents: ", exception)
-            }
-
 
     }
 
-
+    private suspend fun listTasks(userId: String): List<Task> {
+        return taskService.listAllTasksByUser(userId).await().documents.map {
+            it.toObject(Task::class.java)!!
+        }
+    }
 }

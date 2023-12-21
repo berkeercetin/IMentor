@@ -17,67 +17,85 @@
         android:id="@+id/buttonAddTask"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="148dp"
+        android:layout_marginBottom="71dp"
         android:text="Ekle"
         app:backgroundTint="@color/primary"
-        tools:layout_editor_absoluteX="148dp"
-        tools:layout_editor_absoluteY="540dp" />
-
-
-
-
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/extraInputsLayout" />
 
 
     <EditText
         android:id="@+id/editTextTaskDescription"
-        android:layout_width="209dp"
-        android:layout_height="65dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="15dp"
         android:background="@drawable/edittextberke"
         android:ems="10"
         android:hint="Görev Açıklaması"
         android:inputType="text"
         android:textColorHint="@color/primaryhint"
-        tools:layout_editor_absoluteX="91dp"
-        tools:layout_editor_absoluteY="123dp" />
+        app:layout_constraintBottom_toTopOf="@+id/categorySpinner"
+        app:layout_constraintEnd_toEndOf="@+id/addTaskName"
+        app:layout_constraintStart_toStartOf="@+id/addTaskName"
+        app:layout_constraintTop_toBottomOf="@+id/addTaskName" />
 
     <TextView
         android:id="@+id/textView18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="9dp"
         android:fontFamily="@font/poppins_semibold"
         android:text="Yeni Görev Ekle"
         android:textColor="@color/primary"
         android:textSize="28sp"
-        tools:layout_editor_absoluteX="91dp"
-        tools:layout_editor_absoluteY="16dp" />
+        app:layout_constraintBottom_toTopOf="@+id/addTaskName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/categorySpinner"
-        android:layout_width="206dp"
-        android:layout_height="43dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="20dp"
         android:entries="@array/category_array"
-        tools:layout_editor_absoluteX="92dp"
-        tools:layout_editor_absoluteY="202dp" />
+        app:layout_constraintBottom_toTopOf="@+id/extraInputsLayout"
+        app:layout_constraintEnd_toEndOf="@+id/editTextTaskDescription"
+        app:layout_constraintStart_toStartOf="@+id/editTextTaskDescription"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTaskDescription" />
 
     <EditText
         android:id="@+id/addTaskName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="9dp"
         android:background="@drawable/edittextberke"
         android:ems="10"
         android:hint="İsim"
         android:inputType="text"
         android:textColorHint="@color/primaryhint"
-        tools:layout_editor_absoluteX="91dp"
-        tools:layout_editor_absoluteY="73dp" />
+        app:layout_constraintBottom_toTopOf="@+id/editTextTaskDescription"
+        app:layout_constraintStart_toStartOf="@+id/textView18"
+        app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
     <LinearLayout
         android:id="@+id/extraInputsLayout"
-        android:layout_width="408dp"
-        android:layout_height="163dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="112dp"
         android:gravity="center"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="265dp">
+        app:layout_constraintBottom_toTopOf="@+id/buttonAddTask"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/categorySpinner">
 
         <EditText
             android:id="@+id/editTextStartTime"

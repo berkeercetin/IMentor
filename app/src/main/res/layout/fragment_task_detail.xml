@@ -23,13 +23,14 @@
         android:id="@+id/textView16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="3dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="14dp"
         android:fontFamily="@font/poppins_semibold"
         android:text="Alt Görevler"
         android:textColor="@color/primary"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/recyclerViewDetail"
-        app:layout_constraintStart_toStartOf="@+id/recyclerViewDetail"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/taskDetailCounter" />
 
     <TextView
@@ -50,51 +51,64 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="68dp"
+        android:layout_marginTop="186dp"
         android:layout_marginEnd="68dp"
-        android:layout_marginBottom="19dp"
+        android:layout_marginBottom="322dp"
         android:fontFamily="@font/poppins_semibold"
         android:gravity="center"
         android:text="2869/10000"
         android:textSize="34sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView16"
+        app:layout_constraintBottom_toTopOf="@+id/fabedit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/taskDetailExplanation" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewDetail"
-        android:layout_width="0dp"
+        android:layout_width="296dp"
         android:layout_height="0dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="319dp"
-        android:layout_marginEnd="13dp"
-        android:layout_marginBottom="91dp"
+        android:layout_marginBottom="147dp"
         app:layout_constraintBottom_toTopOf="@+id/button4"
-        app:layout_constraintEnd_toEndOf="@+id/taskDetailExplanation"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button3"
-        android:layout_width="134dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginBottom="203dp"
+        android:layout_width="97dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="153dp"
         android:text="Ekle"
         app:backgroundTint="@color/primary"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/recyclerViewDetail"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recyclerViewDetail" />
 
     <Button
         android:id="@+id/button4"
-        android:layout_width="118dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="109dp"
+        android:layout_width="121dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="143dp"
+        android:layout_marginEnd="71dp"
+        android:layout_marginBottom="30dp"
         android:text="Tamamla !"
         app:backgroundTint="@color/primary"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/fabedit"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recyclerViewDetail" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabedit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="22dp"
+        android:layout_marginBottom="18dp"
+        android:src="@android:drawable/ic_input_add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button4"
+        app:layout_constraintTop_toBottomOf="@+id/taskDetailCounter" />
 </androidx.constraintlayout.widget.ConstraintLayout>

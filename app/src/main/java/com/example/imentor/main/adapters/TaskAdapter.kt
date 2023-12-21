@@ -12,9 +12,10 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imentor.R
 import com.example.imentor.main.TaskDetailFragment
+import com.example.imentor.main.entities.Task
 
 class TaskAdapter(
-    private val taskList: List<MutableMap<String, Any>? >, private val context:Context
+    private val taskList: List<Task>, private val context:Context
 ) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
 
     inner class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -32,12 +33,12 @@ class TaskAdapter(
         val task = taskList[position]
 
         // Verileri ViewHolder bileşenlerine aktar
-        holder.nameTextView.text = task!!["name"].toString()
-        holder.explantationTextView.text = task!!["explanation"].toString()
-        holder.createDateTimeView.text = task!!["startDateTime"].toString()
+        holder.nameTextView.text = task.name
+        holder.explantationTextView.text = task.explantation
+        holder.createDateTimeView.text = task.startDateTime
 
         holder.itemView.setOnClickListener {
-            val taskID = task["taskID"].toString()
+            val taskID = task.taskID
                 val fragment = TaskDetailFragment()
                 val bundle = Bundle()
                 bundle.putString("taskID", taskID)

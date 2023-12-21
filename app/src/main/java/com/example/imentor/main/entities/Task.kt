@@ -9,6 +9,6 @@ data class Task(
     val interval: String? = null,
     val type: String? = null,
     var complated: Boolean? = null,
-    var subTasks: List<SubTask>? = null,
+    var subTasks: String? = null,
     var counters: List<Counter>? = null,
     )
