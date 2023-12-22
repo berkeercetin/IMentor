@@ -61,6 +61,7 @@ class HomeFragment : Fragment() {
                 tasks = listTasks(GlobalService.userId)
                 val adapter = TaskAdapter(tasks,requireContext())
                 recyclerView.adapter = adapter
+                adapter.filterByCategory("sağlık")
                 // Both tasks are completed
             } catch (e: Exception) {
                 // Handle exceptions appropriately

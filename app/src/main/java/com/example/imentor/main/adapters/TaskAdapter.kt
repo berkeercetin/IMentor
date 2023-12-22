@@ -1,5 +1,6 @@
 package com.example.imentor.main.adapters
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,7 +18,19 @@ import com.example.imentor.main.entities.Task
 class TaskAdapter(
     private val taskList: List<Task>, private val context:Context
 ) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
+    private var filteredTaskList: List<Task> = taskList // Filtrelenmiş görev listesi
 
+    // Diğer metodlar aynı kalır
+
+    // Kategoriye göre filtreleme
+    fun filterByCategory(category: String) {
+        filteredTaskList = if (category.isEmpty()) {
+            taskList // Eğer kategori boşsa, tüm görevleri göster
+        } else {
+            taskList.filter { it.type == category }
+        }
+        notifyDataSetChanged() // Adapter'a değişiklikleri bildir
+    }
     inner class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nameTextView: TextView = itemView.findViewById(R.id.taskListName)
         val explantationTextView: TextView = itemView.findViewById(R.id.taskListExplanation)
@@ -30,7 +43,8 @@ class TaskAdapter(
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
-        val task = taskList[position]
+        val task = filteredTaskList[position] // Burada taskList yerine filteredTaskList kullanın
+
 
         // Verileri ViewHolder bileşenlerine aktar
         holder.nameTextView.text = task.name
@@ -39,23 +53,24 @@ class TaskAdapter(
 
         holder.itemView.setOnClickListener {
             val taskID = task.taskID
-                val fragment = TaskDetailFragment()
-                val bundle = Bundle()
-                bundle.putString("taskID", taskID)
-                Toast.makeText(context, "Adapter: $taskID", Toast.LENGTH_LONG).show()
-                fragment.arguments = bundle
-                val fragmentManager: androidx.fragment.app.FragmentManager = (context as FragmentActivity).supportFragmentManager
-                val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
-                fragmentTransaction.replace(R.id.fragmentContainerView, fragment)
-                fragmentTransaction.addToBackStack(null)
-                fragmentTransaction.commit()
+            val fragment = TaskDetailFragment()
+            val bundle = Bundle()
+            bundle.putString("taskID", taskID)
+            Toast.makeText(context, "Adapter: $taskID", Toast.LENGTH_LONG).show()
+            fragment.arguments = bundle
+            val fragmentManager: androidx.fragment.app.FragmentManager = (context as FragmentActivity).supportFragmentManager
+            val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+            fragmentTransaction.replace(R.id.fragmentContainerView, fragment)
+            fragmentTransaction.addToBackStack(null)
+            fragmentTransaction.commit()
         }
 
 
     }
 
 
+
     override fun getItemCount(): Int {
-        return taskList.size
+        return filteredTaskList.size
     }
 }

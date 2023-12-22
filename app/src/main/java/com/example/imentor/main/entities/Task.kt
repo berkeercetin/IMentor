@@ -11,4 +11,5 @@ data class Task(
     var complated: Boolean? = null,
     var subTasks: String? = null,
     var counters: List<Counter>? = null,
-    )
+    ) {
+}
