@@ -8,14 +8,19 @@ import android.content.Intent
 import android.os.Build
 import android.os.IBinder
 import android.util.Log
+import android.widget.Toast
 import androidx.core.app.NotificationCompat
+import androidx.preference.PreferenceManager
+import androidx.preference.SwitchPreferenceCompat
 import com.example.imentor.App
 import com.example.imentor.R
+import com.example.imentor.util.SharedPreferencesUtil
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
 
 class MyFirebaseMessagingService: FirebaseMessagingService() {
+    private lateinit var sharedPreferencesUtil: SharedPreferencesUtil
 
     override fun onNewToken(token: String) {
         super.onNewToken(token)
@@ -24,6 +29,10 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
 
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
+
+        val allowNotifications = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("notifications", true)
+        Log.i("cloud", allowNotifications.toString())
+        if (allowNotifications) {
         message.notification?.let {
             val title = it.title
             val body = it.body
@@ -50,7 +59,7 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
             // Issue the notification
             notificationManager.notify(1, builder.build())
 
-
+        }
         }
 
 
