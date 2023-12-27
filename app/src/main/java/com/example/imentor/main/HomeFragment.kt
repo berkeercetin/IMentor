@@ -7,6 +7,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.lifecycleScope
@@ -43,12 +46,18 @@ class HomeFragment : Fragment() {
     }
 
 
-    @SuppressLint("Range")
+    @SuppressLint("Range", "SuspiciousIndentation")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
             val recyclerView = view.findViewById<RecyclerView>(R.id.homeLoopRecyclerView)!!
             val fabButton = view.findViewById<com.google.android.material.floatingactionbutton.FloatingActionButton>(R.id.fabAdd)!!
-            fabButton.setOnClickListener {
+            val categorySpinner = view.findViewById<Spinner>(R.id.categorySpinner)!!
+            val categories = listOf("sağlık", "iş", "alışveriş")
+            val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, categories)
+              adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+              categorySpinner.adapter = adapter
+
+        fabButton.setOnClickListener {
                 val fragment = AddTask()
                 val transaction = requireActivity().supportFragmentManager.beginTransaction()
                 transaction.replace(R.id.fragmentContainerView, fragment)
@@ -61,8 +70,17 @@ class HomeFragment : Fragment() {
                 tasks = listTasks(GlobalService.userId)
                 val adapter = TaskAdapter(tasks,requireContext())
                 recyclerView.adapter = adapter
-                adapter.filterByCategory("sağlık")
                 // Both tasks are completed
+                categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                        val selectedCategory = categories[position]
+                        // Burada seçilen kategoriye göre işlemler yapabilirsiniz
+                        adapter.filterByCategory(selectedCategory)
+                    }
+                    override fun onNothingSelected(parent: AdapterView<*>?) {
+                        // İstediğiniz bir işlemi burada yapabilirsiniz
+                    }
+                }
             } catch (e: Exception) {
                 // Handle exceptions appropriately
                 Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_LONG).show()

@@ -1,6 +1,11 @@
 package com.example.imentor.main
 
 import GlobalService
+import android.content.Context
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imentor.R
 import com.example.imentor.main.adapters.SubTaskAdapter
+import com.example.imentor.main.entities.Counter
 import com.example.imentor.main.entities.SubTask
 import com.example.imentor.main.entities.Task
 import com.example.imentor.main.modals.CustomModal
@@ -29,7 +35,23 @@ class TaskDetailFragment : Fragment() {
     private val taskService = TaskManager()
     private lateinit var subTasks: List<SubTask>
     private lateinit var task: Task
+    private lateinit var sensorManager: SensorManager
+    private var stepCountSensor: Sensor? = null
+    private var stepCount = 0
 
+    private val stepCountListener = object : SensorEventListener {
+        override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
+            // Gerekirse doğruluk değişikliklerini ele alın
+        }
+
+        override fun onSensorChanged(event: SensorEvent) {
+            // Adım sayısını güncelleyin
+            stepCount = event.values[0].toInt()
+            val taskDetailCounter = view!!.findViewById<MaterialTextView>(R.id.taskDetailCounter)!!
+            taskDetailCounter.text = stepCount.toString()
+            // Adım sayısına bağlı olarak UI'nizi güncelleyin veya başka işlemler yapın
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -43,10 +65,26 @@ class TaskDetailFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        sensorManager = requireContext().getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        stepCountSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
+
+        if (stepCountSensor == null) {
+            // Cihazın adım sayar sensörü bulunmuyorsa işlemleri burada yapabilirsiniz
+            Toast.makeText(context, "Adım sayar sensörü bulunamadı", Toast.LENGTH_LONG).show()
+        } else {
+            // Adım sayısı güncellemeleri için bir dinleyici kaydedin
+            sensorManager.registerListener(stepCountListener, stepCountSensor, SensorManager.SENSOR_DELAY_UI)
+        }
+
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewDetail)!!
         val taskDetailName = view.findViewById<MaterialTextView>(R.id.taskDetailName)!!
+        val taskDetailCounter = view.findViewById<MaterialTextView>(R.id.taskDetailCounter)!!
+
         val taskDetailExplanation = view.findViewById<MaterialTextView>(R.id.taskDetailExplanation)!!
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        val complateButton  = view.findViewById<Button>(R.id.button4)!!
+
+
         val fabButton = view.findViewById<com.google.android.material.floatingactionbutton.FloatingActionButton>(R.id.fabedit)!!
         fabButton.setOnClickListener {
             val fragment = AddTask()
@@ -71,8 +109,12 @@ class TaskDetailFragment : Fragment() {
             val taskId = it.getString("taskID")!!
             lifecycleScope.launch {
                 try {
+
                     task = getTask(taskId)
                     subTasks = listSubTasks(GlobalService.userId, taskId)
+                    if (task.type=="sağlık"){
+                        complateButton.visibility = View.GONE
+                    }
                     taskDetailName.text = task.name
                     taskDetailExplanation.text = task.explantation
                     val adapter = SubTaskAdapter(subTasks,requireContext())
@@ -99,6 +141,10 @@ class TaskDetailFragment : Fragment() {
     private suspend fun getTask(taskId: String): Task {
         val result = taskService.getTaskById(GlobalService.userId, taskId).await()
         return result.toObject(Task::class.java)!!
+    }
+    private suspend fun getCounter(taskId: String,dateTime:String) {
+        val result = taskService.getTaskById(GlobalService.userId, taskId).await()
+        return;
     }
     private var m_Text = ""
 

@@ -64,8 +64,6 @@ class TaskAdapter(
             fragmentTransaction.addToBackStack(null)
             fragmentTransaction.commit()
         }
-
-
     }
 
 
