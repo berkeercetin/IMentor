@@ -15,7 +15,7 @@ class SubTaskAdapter(
     inner class SubTaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nameTextView: TextView = itemView.findViewById(R.id.taskListName)
         val explantationTextView: TextView = itemView.findViewById(R.id.taskListExplanation)
-        val createDateTimeView: TextView = itemView.findViewById(R.id.taskListCreateDateTime)
+        val createDateTimeView: TextView = itemView.findViewById(R.id.taskListStatus)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SubTaskAdapter.SubTaskViewHolder

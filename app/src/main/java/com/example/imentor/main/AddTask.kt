@@ -110,7 +110,7 @@ class AddTask : Fragment() {
                 val selectedCategory = parentView.getItemAtPosition(position) as String
 
                 // "Sağlık" kategorisi seçildiyse ek inputları görünür yap
-                if ("Sağlık" == selectedCategory) {
+                if ("Adım" == selectedCategory) {
                     extraInputsLayout.visibility = View.VISIBLE
                 } else {
                     extraInputsLayout.visibility = View.GONE
@@ -141,11 +141,8 @@ class AddTask : Fragment() {
         }
 
         buttonAddTask.setOnClickListener {
-            if(editTextTaskName.text.toString().isEmpty() || editTextTaskDescription.text.toString().isEmpty()){
-                Toast.makeText(context, "Please fill in all fields", Toast.LENGTH_LONG).show()
-                return@setOnClickListener
-            }
-            else if (buttonAddTask.text == "Update Task"){
+
+             if (buttonAddTask.text == "Update Task"){
                 val task = Task(
                     editTextTaskName.text.toString(),
                     taskId,
@@ -164,7 +161,8 @@ class AddTask : Fragment() {
                     Toast.makeText(context,  it.message.toString()+"Task could not be updated", Toast.LENGTH_LONG).show()
                 }
             }
-            else if (buttonAddTask.text == "Add Task"){
+            else if (buttonAddTask.text == "Ekle"){
+                Toast.makeText(context, "Task added started", Toast.LENGTH_LONG).show()
                 val task = Task(
                     editTextTaskName.text.toString(),
                     "",

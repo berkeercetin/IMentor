@@ -1,7 +1,5 @@
 package com.example.imentor.main.services.concrates
 
-import android.widget.Toast
-import com.example.imentor.entities.User
 import com.example.imentor.main.entities.SubTask
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
@@ -32,11 +30,12 @@ class TaskManager {
 
     fun addTask (uid: String, task: MyTask): Task<Void> {
         task.taskID = db.collection("users/$uid/tasks").document().id
+        task.complated = false
         return db.document("users/$uid/tasks/" + task.taskID).set(task)
     }
 
     fun updateTask (uid: String, task: MyTask): Task<Void> {
-        return db.document("users/$uid/tasks/" + task.taskID).update("taskID", task.taskID,"name", task.name, "explantation", task.explantation, "startDateTime", task.startDateTime, "endDateTime", task.endDateTime, "interval", task.interval, "type", task.type, "complated", task.complated)
+        return db.document("users/$uid/tasks/" + task.taskID).update("taskID", task.taskID,"name", task.name, "explanation", task.explanation, "startDateTime", task.startDateTime, "endDateTime", task.endDateTime, "interval", task.interval, "type", task.type, "complated", task.complated)
     }
 
     fun deleteTask (uid: String, taskID: String): Task<Void> {

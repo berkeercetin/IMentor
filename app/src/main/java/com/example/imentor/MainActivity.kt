@@ -27,6 +27,7 @@ import com.example.imentor.main.ProfileFragment
 import com.example.imentor.main.SettingsFragment
 import android.Manifest.permission.POST_NOTIFICATIONS
 import android.util.Log
+import androidx.core.app.ActivityCompat
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 
@@ -63,7 +64,9 @@ class MainActivity : AppCompatActivity() {
     private val authManager = AuthManager()
     override fun onCreate(savedInstanceState: Bundle?) {
         askNotificationPermission()
-
+        if (isPermissionGranted()) {
+            requestPermission()
+        }
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -146,6 +149,43 @@ class MainActivity : AppCompatActivity() {
         val navView: NavigationView = findViewById(R.id.nav_view)
         navView.getHeaderView(0).findViewById<TextView>(R.id.navUserName).text = user.name
         navView.getHeaderView(0).findViewById<TextView>(R.id.navUserEmail).text = user.email
+    }
+
+    val ACTIVITY_RECOGNITION_REQUEST_CODE = 100
+
+    private fun requestPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(android.Manifest.permission.ACTIVITY_RECOGNITION),
+                ACTIVITY_RECOGNITION_REQUEST_CODE
+            )
+        }
+    }
+
+    private fun isPermissionGranted(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            this,
+            android.Manifest.permission.ACTIVITY_RECOGNITION
+        ) != PackageManager.PERMISSION_GRANTED
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            ACTIVITY_RECOGNITION_REQUEST_CODE -> {
+                if ((grantResults.isNotEmpty() &&
+                            grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                ) {
+                    // Permission is granted. Continue the action or workflow
+                    // in your app.
+                }
+            }
+        }
     }
 
     }

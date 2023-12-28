@@ -1,6 +1,5 @@
 package com.example.imentor.main.adapters
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -34,7 +33,7 @@ class TaskAdapter(
     inner class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nameTextView: TextView = itemView.findViewById(R.id.taskListName)
         val explantationTextView: TextView = itemView.findViewById(R.id.taskListExplanation)
-        val createDateTimeView: TextView = itemView.findViewById(R.id.taskListCreateDateTime)
+        val taskListStatus: TextView = itemView.findViewById(R.id.taskListStatus)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
@@ -48,8 +47,13 @@ class TaskAdapter(
 
         // Verileri ViewHolder bileşenlerine aktar
         holder.nameTextView.text = task.name
-        holder.explantationTextView.text = task.explantation
-        holder.createDateTimeView.text = task.startDateTime
+        holder.explantationTextView.text = task.explanation
+
+        if (task.complated!!) {
+            holder.taskListStatus.text = "Tamamlandı"
+        } else {
+            holder.taskListStatus.text = "Tamamlanmadı"
+        }
 
         holder.itemView.setOnClickListener {
             val taskID = task.taskID
