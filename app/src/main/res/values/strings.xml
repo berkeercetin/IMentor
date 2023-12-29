@@ -12,7 +12,7 @@
     <!-- Messages Preferences -->
     <string name="signature_title">Your signature</string>
     <string name="reply_title">Default reply action</string>
-   <string name="default_notification_channel_id">test</string>
+    <string name="default_notification_channel_id">test</string>
 
 
     <!-- Sync Preferences -->
