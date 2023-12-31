@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,26 +12,27 @@
 
     <TextView
         android:id="@+id/dayTextView"
-        android:layout_width="157dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="21dp"
-        android:layout_marginTop="7dp"
-        android:layout_marginEnd="44dp"
-        android:layout_marginBottom="6dp"
-        android:text="Hoşgeldin"
+        android:layout_width="146dp"
+        android:layout_height="92dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="8dp"
+        android:text="Hoşgeldin {Berke}"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/homeLoopRecyclerView"
         app:layout_constraintEnd_toStartOf="@+id/categorySpinner"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- RecyclerView ve Empty State TextView -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/homeLoopRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginBottom="7dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="60dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,23 +40,36 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
+    <TextView
+        android:id="@+id/emptyStateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+
+        android:text="Henüz bir şey eklenmemiş."
+        app:layout_constraintBottom_toBottomOf="@+id/homeLoopRecyclerView"
+        app:layout_constraintEnd_toEndOf="@+id/homeLoopRecyclerView"
+        app:layout_constraintStart_toStartOf="@+id/homeLoopRecyclerView"
+        app:layout_constraintTop_toTopOf="@+id/homeLoopRecyclerView" />
+
+    <!-- FloatingActionButton -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="35dp"
-        android:layout_marginBottom="23dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginBottom="9dp"
         android:src="@android:drawable/ic_input_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Spinner
         android:id="@+id/categorySpinner"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="7dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/homeLoopRecyclerView"
+        android:layout_width="184dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="49dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/dayTextView"
         app:layout_constraintTop_toTopOf="parent" />

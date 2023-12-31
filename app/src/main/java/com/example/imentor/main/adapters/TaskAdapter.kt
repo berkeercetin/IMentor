@@ -23,7 +23,7 @@ class TaskAdapter(
 
     // Kategoriye göre filtreleme
     fun filterByCategory(category: String) {
-        filteredTaskList = if (category.isEmpty()) {
+        filteredTaskList = if (category.isEmpty() || category == "hepsi") {
             taskList // Eğer kategori boşsa, tüm görevleri göster
         } else {
             taskList.filter { it.type == category }

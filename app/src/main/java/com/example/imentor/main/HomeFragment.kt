@@ -10,9 +10,12 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imentor.MainActivity
@@ -28,6 +31,7 @@ import kotlinx.coroutines.tasks.await
 class HomeFragment : Fragment() {
     private val userService = UserManager()
     private val taskService = TaskManager()
+    private val globalService = GlobalService()
     private lateinit var tasks:List<Task>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,21 +42,35 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val activity = requireActivity() as MainActivity
         val toolbar = activity.findViewById<Toolbar>(R.id.my_toolbar)
         toolbar.visibility = View.VISIBLE
+        // Geri tuşuna basıldığında
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                requireActivity().finish()
+            }
+        }
+
+        // Geri tuşu dinleyicisini ekleyin
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
         return inflater.inflate(R.layout.fragment_home, container, false)
+
+
+
     }
 
 
-    @SuppressLint("Range", "SuspiciousIndentation")
+    @SuppressLint("Range", "SuspiciousIndentation", "SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
-            val recyclerView = view.findViewById<RecyclerView>(R.id.homeLoopRecyclerView)!!
+            val welcome = view.findViewById<TextView>(R.id.dayTextView)!!
+             welcome.text = "Hoşgeldin, ${GlobalService.user?.name}"
+           val recyclerView = view.findViewById<RecyclerView>(R.id.homeLoopRecyclerView)!!
             val fabButton = view.findViewById<com.google.android.material.floatingactionbutton.FloatingActionButton>(R.id.fabAdd)!!
             val categorySpinner = view.findViewById<Spinner>(R.id.categorySpinner)!!
-            val categories = listOf("sağlık", "iş", "alışveriş")
+        val emptyStateTextView = view.findViewById<TextView>(R.id.emptyStateTextView)
+           val categories = listOf("hepsi", "iş", "alışveriş","spor", "eğlence", "diğer","adım")
             val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, categories)
               adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
               categorySpinner.adapter = adapter
@@ -69,8 +87,13 @@ class HomeFragment : Fragment() {
             try {
                 tasks = listTasks(GlobalService.userId)
                 val adapter = TaskAdapter(tasks,requireContext())
+
                 recyclerView.adapter = adapter
                 // Both tasks are completed
+                if(adapter.itemCount == 0){
+                    emptyStateTextView.visibility = View.VISIBLE
+                    recyclerView.visibility = View.GONE
+                }
                 categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                         val selectedCategory = categories[position]

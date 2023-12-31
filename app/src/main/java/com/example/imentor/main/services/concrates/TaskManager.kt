@@ -35,7 +35,7 @@ class TaskManager {
     }
 
     fun updateTask (uid: String, task: MyTask): Task<Void> {
-        return db.document("users/$uid/tasks/" + task.taskID).update("taskID", task.taskID,"name", task.name, "explanation", task.explanation, "startDateTime", task.startDateTime, "endDateTime", task.endDateTime, "interval", task.interval, "type", task.type, "complated", task.complated)
+        return db.document("users/$uid/tasks/" + task.taskID).update("taskID", task.taskID,"name", task.name, "explanation", task.explanation, "startDateTime", task.startDateTime, "endDateTime", task.endDateTime,  "type", task.type, "complated", task.complated)
     }
 
     fun deleteTask (uid: String, taskID: String): Task<Void> {

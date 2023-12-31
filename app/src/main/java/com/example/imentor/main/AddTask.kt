@@ -2,17 +2,21 @@ package com.example.imentor.main
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.example.imentor.R
 import com.example.imentor.main.entities.Task
@@ -36,13 +40,6 @@ class AddTask : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-            val taskId = it.getString("taskID")!!
-            val taskName = it.getString("taskName")!!
-            val taskExplanation = it.getString("taskExplanation")!!
-        }
     }
 
     override fun onCreateView(
@@ -54,6 +51,7 @@ class AddTask : Fragment() {
         return inflater.inflate(com.example.imentor.R.layout.fragment_add_task, container, false)
     }
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     @SuppressLint("ClickableViewAccessibility", "CutPasteId")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
@@ -99,7 +97,6 @@ class AddTask : Fragment() {
         })
 
         val categorySpinner = view.findViewById<Spinner>(com.example.imentor.R.id.categorySpinner)!!
-        val extraInputsLayout = view.findViewById<LinearLayout>(com.example.imentor.R.id.extraInputsLayout)!!
         categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parentView: AdapterView<*>,
@@ -110,11 +107,7 @@ class AddTask : Fragment() {
                 val selectedCategory = parentView.getItemAtPosition(position) as String
 
                 // "Sağlık" kategorisi seçildiyse ek inputları görünür yap
-                if ("Adım" == selectedCategory) {
-                    extraInputsLayout.visibility = View.VISIBLE
-                } else {
-                    extraInputsLayout.visibility = View.GONE
-                }
+
             }
             override fun onNothingSelected(parentView: AdapterView<*>?) {
                 // Bir şey seçilmediğinde yapılacaklar
@@ -128,16 +121,22 @@ class AddTask : Fragment() {
         val editTextTaskStartTime = view.findViewById<EditText>(com.example.imentor.R.id.editTextStartTime)!!
         val editTextTaskEndTime = view.findViewById<EditText>(com.example.imentor.R.id.editTextEndTime)!!
         var taskId:String = ""
+        var task = Task()
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-            taskId = it.getString("taskID")!!
-            val taskName = it.getString("taskName")!!
-            val taskExplanation = it.getString("taskExplanation")!!
-            editTextTaskName.setText(taskName)
-            editTextTaskDescription.setText(taskExplanation)
-            textView18.setText("Update Task")
-            buttonAddTask.setText("Update Task")
+            task= it.getSerializable("task") as Task
+            editTextTaskName.setText(task.name)
+            editTextTaskDescription.setText(task.explanation)
+            editTextTaskStartTime.setText(task.startDateTime)
+            editTextTaskEndTime.setText(task.endDateTime)
+            taskId = task.taskID.toString()
+          //  val position = (categorySpinner.adapter as ArrayAdapter<*>).getPosition(task.type as Nothing?)
+           // if (position != -1) {
+            //    categorySpinner.setSelection(position)
+            //} else {
+             //   categorySpinner.setSelection(0)
+           // }
+            textView18.text = "Update Task"
+            buttonAddTask.text = "Update Task"
         }
 
         buttonAddTask.setOnClickListener {
@@ -149,6 +148,8 @@ class AddTask : Fragment() {
                     editTextTaskDescription.text.toString(),
                     editTextTaskStartTime.text.toString(),
                     editTextTaskEndTime.text.toString(),
+                    categorySpinner.selectedItem.toString(),
+
                 )
                 taskService.updateTask(GlobalService.userId, task).addOnSuccessListener {
                     Toast.makeText(context, "Task updated successfully", Toast.LENGTH_LONG).show()
@@ -163,13 +164,14 @@ class AddTask : Fragment() {
             }
             else if (buttonAddTask.text == "Ekle"){
                 Toast.makeText(context, "Task added started", Toast.LENGTH_LONG).show()
-                val task = Task(
-                    editTextTaskName.text.toString(),
-                    "",
-                    editTextTaskDescription.text.toString(),
-                    editTextTaskStartTime.text.toString(),
-                    editTextTaskEndTime.text.toString(),
-                )
+                 val task = Task(
+                     editTextTaskName.text.toString(),
+                     taskId,
+                     editTextTaskDescription.text.toString(),
+                     editTextTaskStartTime.text.toString(),
+                     editTextTaskEndTime.text.toString(),
+                     categorySpinner.selectedItem.toString(),
+                     )
                 uploadTask(task)
             }
         }

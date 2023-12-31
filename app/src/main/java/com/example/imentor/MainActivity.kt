@@ -28,6 +28,7 @@ import com.example.imentor.main.SettingsFragment
 import android.Manifest.permission.POST_NOTIFICATIONS
 import android.util.Log
 import androidx.core.app.ActivityCompat
+import com.example.imentor.main.NotificationsFragment
 import com.example.imentor.main.StaticsFragment
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
@@ -110,6 +111,13 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.nav_home -> {
                     val fragment = HomeFragment()
+                    val transaction = this.supportFragmentManager.beginTransaction()
+                    transaction.replace(R.id.fragmentContainerView, fragment)
+                    transaction.addToBackStack(null)
+                    transaction.commit()
+                }
+                R.id.nav_notifications -> {
+                    val fragment = NotificationsFragment()
                     val transaction = this.supportFragmentManager.beginTransaction()
                     transaction.replace(R.id.fragmentContainerView, fragment)
                     transaction.addToBackStack(null)

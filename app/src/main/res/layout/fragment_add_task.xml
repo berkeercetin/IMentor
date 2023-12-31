@@ -18,13 +18,13 @@
         android:id="@+id/buttonAddTask"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="111dp"
+        android:layout_marginBottom="112dp"
         android:text="Ekle"
         app:backgroundTint="@color/primary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/extraInputsLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/categorySpinner" />
 
     <EditText
         android:id="@+id/editTextTaskDescription"
@@ -46,7 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="7dp"
         android:fontFamily="@font/poppins_semibold"
         android:text="Yeni Görev Ekle"
         android:textColor="@color/primary"
@@ -60,9 +60,9 @@
         android:id="@+id/categorySpinner"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="151dp"
         android:entries="@array/category_array"
-        app:layout_constraintBottom_toTopOf="@+id/extraInputsLayout"
+        app:layout_constraintBottom_toTopOf="@+id/buttonAddTask"
         app:layout_constraintEnd_toEndOf="@+id/editTextEndTime"
         app:layout_constraintStart_toStartOf="@+id/editTextEndTime"
         app:layout_constraintTop_toBottomOf="@+id/editTextEndTime" />
@@ -71,7 +71,7 @@
         android:id="@+id/addTaskName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="11dp"
         android:background="@drawable/edittextberke"
         android:ems="10"
         android:hint="İsim"
@@ -108,37 +108,6 @@
         app:layout_constraintBottom_toTopOf="@+id/categorySpinner"
         app:layout_constraintStart_toStartOf="@+id/editTextStartTime"
         app:layout_constraintTop_toBottomOf="@+id/editTextStartTime" />
-
-    <LinearLayout
-        android:id="@+id/extraInputsLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="28dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/buttonAddTask"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/categorySpinner">
-
-
-        <EditText
-            android:id="@+id/editTextTaskCount"
-            android:layout_width="209dp"
-            android:layout_height="65dp"
-            android:background="@drawable/edittextberke"
-            android:ems="10"
-            android:hint="Adım Sayısı"
-            android:inputType="text"
-            android:textColorHint="@color/primaryhint"
-            tools:layout_editor_absoluteX="91dp"
-            tools:layout_editor_absoluteY="123dp" />
-
-        <!-- İlave input alanları -->
-
-    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

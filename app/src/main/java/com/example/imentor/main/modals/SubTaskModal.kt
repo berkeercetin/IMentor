@@ -31,7 +31,7 @@ class CustomModal(context: Context) : AlertDialog(context) {
         nameEditText = view.findViewById(R.id.editTextName)
         descriptionEditText = view.findViewById(R.id.editTextDescription)
 
-        setTitle("Modal Başlığı")
+        setTitle("Alt Görev Ekle")
         setButton(BUTTON_POSITIVE, "Kaydet") { _, _ ->
             val name = nameEditText?.text.toString()
             val description = descriptionEditText?.text.toString()

@@ -11,12 +11,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="53dp"
-        android:layout_marginEnd="31dp"
         android:fontFamily="@font/poppins_semibold"
         android:text="TaskName"
         android:textColor="@color/primary"
         android:textSize="34sp"
-        app:layout_constraintEnd_toEndOf="@+id/taskDetailExplanation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -82,14 +82,13 @@
         android:id="@+id/complate"
         android:layout_width="119dp"
         android:layout_height="45dp"
-        android:layout_marginStart="145dp"
-        android:layout_marginEnd="69dp"
         android:layout_marginBottom="8dp"
         android:text="Tamamla !"
         app:backgroundTint="@color/primary"
         app:layout_constraintBottom_toTopOf="@+id/delete"
-        app:layout_constraintEnd_toStartOf="@+id/fabedit"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 
     <Button
         android:id="@+id/delete"
@@ -112,7 +111,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="21dp"
         android:layout_marginBottom="18dp"
-        android:src="@android:drawable/ic_input_add"
+        android:src="@android:drawable/ic_menu_edit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/delete" />

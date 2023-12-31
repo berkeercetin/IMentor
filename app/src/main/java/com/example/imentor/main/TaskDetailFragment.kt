@@ -1,6 +1,7 @@
 package com.example.imentor.main
 
 import GlobalService
+
 import android.content.Context
 import android.hardware.Sensor
 import android.hardware.SensorEvent
@@ -28,6 +29,7 @@ import com.example.imentor.main.services.concrates.TaskManager
 import com.google.android.material.textview.MaterialTextView
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import java.io.Serializable
 
 
 class TaskDetailFragment : Fragment() {
@@ -86,9 +88,8 @@ class TaskDetailFragment : Fragment() {
             val fragment = AddTask()
             val bundle = Bundle()
             bundle.putString("taskID", task.taskID) // Güncellenen görevin ID'sini iletiyoruz
-            bundle.putString("taskName", task.name) // Güncellenen görevin adını iletiyoruz
-            bundle.putString("taskExplanation", task.explanation) // Güncellenen görevin açıklamasını iletiyoruz
             fragment.arguments = bundle
+            bundle.putSerializable("task", task);
             val fragmentManager: androidx.fragment.app.FragmentManager = (context as FragmentActivity).supportFragmentManager
             val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
             fragmentTransaction.replace(R.id.fragmentContainerView, fragment)
@@ -126,6 +127,9 @@ class TaskDetailFragment : Fragment() {
                             sensorManager?.registerListener(stepCountListener, stepCountSensor, SensorManager.SENSOR_DELAY_UI)
                         }
                         complateButton.visibility = View.GONE
+                    }
+                    else {
+                        taskDetailCounter.visibility = View.GONE
                     }
                     taskDetailName.text = task.name
                     taskDetailExplanation.text = task.explanation

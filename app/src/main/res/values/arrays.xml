@@ -3,10 +3,13 @@
     <!-- Diğer kaynaklar -->
 
     <array name="category_array">
-        <item>Adım</item>
-        <item>Egzersiz</item>
-        <item>Sağlık</item>
-        <item>Kategori</item>
+        <item>hepsi</item>
+        <item>iş</item>
+        <item>alışveriş</item>
+        <item>spor</item>
+        <item>eğlence</item>
+        <item>diğer</item>
+        <item>adım</item>
         <!-- Diğer kategorileri ekleyebilirsiniz -->
     </array>
     <!-- Reply Preference -->
