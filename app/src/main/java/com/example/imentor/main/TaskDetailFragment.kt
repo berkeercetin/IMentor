@@ -110,7 +110,7 @@ class TaskDetailFragment : Fragment() {
             val taskId = it.getString("taskID")!!
             lifecycleScope.launch {
                 try {
-
+                    val textView4 = view.findViewById<TextView>(R.id.textView4)!!
                     val taskDetailCounter = view.findViewById<MaterialTextView>(R.id.taskDetailCounter)!!
 
                     task = getTask(taskId)
@@ -141,7 +141,13 @@ class TaskDetailFragment : Fragment() {
                     taskDetailName.text = task.name
                     taskDetailExplanation.text = task.explanation
                     val adapter = SubTaskAdapter(subTasks,requireContext())
-                    recyclerView.adapter = adapter
+                    if (subTasks.isEmpty()) {
+                        textView4.visibility = View.VISIBLE
+                    }else{
+                        recyclerView.adapter = adapter
+                        textView4.visibility = View.GONE
+                    }
+
 
                     // Both tasks are completed
                 } catch (e: Exception) {

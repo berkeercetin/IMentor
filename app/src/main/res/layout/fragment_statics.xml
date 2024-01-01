@@ -10,16 +10,16 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
         android:fontFamily="@font/poppins"
-        android:padding="36px"
+        android:padding="36dp"
         android:text="İstatistikler"
         android:textColor="@color/primary"
         android:textSize="48sp" />
 
     <com.github.mikephil.charting.charts.PieChart
+        android:padding="36dp"
         android:id="@+id/pieChart"
         android:layout_width="match_parent"
-        android:layout_height="692dp"
-        android:padding="48px">
+        android:layout_height="692dp">
 
     </com.github.mikephil.charting.charts.PieChart>
 

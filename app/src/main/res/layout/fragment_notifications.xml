@@ -10,6 +10,7 @@
         android:id="@+id/notification_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:fontFamily="@font/poppins"
         android:padding="36px"
         android:text="Bildirimler"

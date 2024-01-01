@@ -4,7 +4,7 @@
     <string name="navigation_drawer_open">Menüyü aç</string>
     <string name="navigation_drawer_close">Menüyü kapat</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="default_web_client_id">AIzaSyBTurGPEnkt9GOp9okBv3g0VMCxp2OtgcY</string>
+    <string name="default_web_client_id">441803205158-td29bq6qnrut2kku1ru0a7akaa79ik7v.apps.googleusercontent.com</string>
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>

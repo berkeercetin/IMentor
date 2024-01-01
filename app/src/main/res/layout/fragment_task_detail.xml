@@ -51,8 +51,8 @@
         android:id="@+id/textView16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="64dp"
         android:fontFamily="@font/poppins_semibold"
         android:text="Alt Görevler"
         android:textColor="@color/primary"
@@ -65,10 +65,10 @@
         android:layout_width="0dp"
         android:layout_height="115dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="17dp"
         app:layout_constraintEnd_toEndOf="@+id/taskDetailExplanation"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
@@ -76,8 +76,8 @@
         android:id="@+id/button3"
         android:layout_width="97dp"
         android:layout_height="48dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="29dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="8dp"
         android:text="Ekle"
         app:backgroundTint="@color/primary"
         app:layout_constraintStart_toStartOf="parent"
@@ -148,4 +148,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/detailStart" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:text="Alt görev eklenmemiş."
+        app:layout_constraintStart_toStartOf="@+id/recyclerViewDetail"
+        app:layout_constraintTop_toBottomOf="@+id/textView16" />
 </androidx.constraintlayout.widget.ConstraintLayout>

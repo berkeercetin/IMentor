@@ -35,9 +35,10 @@ class AuthManager {
     }
 
     // Google ile giriş yapma
-    fun signInWithGoogle(): Task<AuthResult> {
-        val provider = GoogleAuthProvider.getCredential(R.string.default_web_client_id.toString(), null)
-        return auth.signInWithCredential(provider)
+    // Authenticate with Firebase using the Google account token
+    fun firebaseAuthWithGoogle(idToken: String): Task<AuthResult> {
+        val credential = GoogleAuthProvider.getCredential(idToken, null)
+        return auth.signInWithCredential(credential)
     }
 
     fun logout() {

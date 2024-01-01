@@ -1,6 +1,8 @@
 package com.example.imentor.auth
 
 import GlobalService
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,6 +12,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
@@ -24,10 +27,17 @@ import com.example.imentor.services.concrates.UserManager
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.identity.SignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.GoogleApiAvailability
+import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.GoogleAuthProvider
 
 
 /**
@@ -42,11 +52,13 @@ class LoginFragment : Fragment(), HideToolbarInterface {
     private lateinit var auth: FirebaseAuth;
     private val authService = AuthManager()
     private val userService = UserManager()
+    private lateinit var googleSignInClient: GoogleSignInClient
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
 
         oneTapClient = Identity.getSignInClient(requireActivity())
+        configureGoogleSignIn()
         signInRequest = BeginSignInRequest.builder()
             .setGoogleIdTokenRequestOptions(
                 BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
@@ -80,7 +92,7 @@ class LoginFragment : Fragment(), HideToolbarInterface {
         val register = view.findViewById<TextView>(R.id.textView9)
         val google = view.findViewById<Button>(R.id.button2)
         google.setOnClickListener{
-            loginGoogle()
+            signInWithGoogle()
         }
         buttonlogin.setOnClickListener {
             login(emailEditText.text.toString(),passwordEditText.text.toString())
@@ -130,12 +142,70 @@ class LoginFragment : Fragment(), HideToolbarInterface {
 
     }
 
+    private fun configureGoogleSignIn() {
 
-    private fun loginGoogle(){
+        val gso = GoogleSignInOptions.Builder()
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
 
-        authService.signInWithGoogle().addOnSuccessListener {
-            Toast.makeText(requireContext(),"Basarılı",Toast.LENGTH_SHORT).show()
 
+        googleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
+    }
+    private fun signInWithGoogle() {
+        val googleApiAvailability = GoogleApiAvailability.getInstance()
+        val resultCode = googleApiAvailability.isGooglePlayServicesAvailable(requireContext())
+
+        if (resultCode == ConnectionResult.SUCCESS) {
+            val signInIntent = googleSignInClient.signInIntent
+            signInLauncher.launch(signInIntent)
+        } else {
+            // Google Play Services kullanılabilirlik sorununu ele al
+            googleApiAvailability.showErrorDialogFragment(requireActivity(), resultCode, 0)
+        }
+
+       // startActivityForResult(signInIntent, 9001)
+    }
+
+
+    // Override onActivityResult method to handle the sign-in result
+    private val signInLauncher = registerForActivityResult (ActivityResultContracts.StartActivityForResult ()) { result ->
+        Log.d("TAG", "onActivityResult: result code - ${result.resultCode}")
+        Log.d("TAG", "onActivityResult: data - ${result.data?.extras?.keySet()}")
+        if (result.resultCode == Activity.RESULT_OK) {
+            // Giriş işlemini işle
+            val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+            try {
+                // Google Sign In was successful, authenticate with Firebase
+                val account = task.getResult(ApiException::class.java)!!
+                Log.d("TAG", "firebaseAuthWithGoogle:" + account.id)
+                authService.firebaseAuthWithGoogle(account.idToken!!).addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        val authUser = auth.currentUser
+                        val user = User(authUser?.uid.toString(),authUser?.displayName.toString(),authUser?.email.toString())
+                        userService.registerFirestore(user).addOnSuccessListener {
+                            val mainActivity = activity as MainActivity?
+                            mainActivity?.setNavHeader(user)
+                            val fragment = HomeFragment()
+                            val transaction = requireActivity().supportFragmentManager.beginTransaction()
+                            transaction.replace(R.id.fragmentContainerView, fragment)
+                            transaction.addToBackStack(null)
+                            transaction.commit()
+                        }
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w("TAG", "signInWithCredential:failure", it.exception)
+                    }
+                }
+            } catch (e: ApiException) {
+                // Google Sign In failed, update UI appropriately
+                Log.w("TAG", "Google sign in failed", e)
+            }
+        }else {
+            Log.w("A", "onActivityResult: result code is not OK")
         }
     }
+
+
+
 }
