@@ -1,6 +1,7 @@
 package com.example.imentor.main
 
 import GlobalService
+import android.annotation.SuppressLint
 
 import android.content.Context
 import android.hardware.Sensor
@@ -67,10 +68,13 @@ class TaskDetailFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_task_detail, container, false)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewDetail)!!
         val taskDetailName = view.findViewById<MaterialTextView>(R.id.taskDetailName)!!
+        val taskStart = view.findViewById<TextView>(R.id.detailStart)!!
+        val taskEnd = view.findViewById<TextView>(R.id.detailEnd)!!
 
         val taskDetailExplanation = view.findViewById<MaterialTextView>(R.id.taskDetailExplanation)!!
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -106,9 +110,12 @@ class TaskDetailFragment : Fragment() {
             val taskId = it.getString("taskID")!!
             lifecycleScope.launch {
                 try {
+
                     val taskDetailCounter = view.findViewById<MaterialTextView>(R.id.taskDetailCounter)!!
 
                     task = getTask(taskId)
+                    taskStart.text = "Başlangıç Tarihi: " + task.startDateTime
+                    taskEnd.text = "Bitiş Tarihi: " + task.endDateTime
                     if(task.complated!!){
                         complateButton.visibility = View.GONE
                     }

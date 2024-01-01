@@ -135,13 +135,13 @@ class AddTask : Fragment() {
             //} else {
              //   categorySpinner.setSelection(0)
            // }
-            textView18.text = "Update Task"
-            buttonAddTask.text = "Update Task"
+            textView18.text = "Görevi Güncelle"
+            buttonAddTask.text = "Görevi Güncelle"
         }
 
         buttonAddTask.setOnClickListener {
 
-             if (buttonAddTask.text == "Update Task"){
+             if (buttonAddTask.text == "Görevi Güncelle"){
                 val task = Task(
                     editTextTaskName.text.toString(),
                     taskId,

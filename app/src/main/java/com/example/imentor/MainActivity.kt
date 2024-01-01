@@ -92,7 +92,6 @@ class MainActivity : AppCompatActivity() {
         })
 
 
-        // Geri butonunu etkinleştirme
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         // Navigation Drawer'ı ayarlama

@@ -65,7 +65,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
             val welcome = view.findViewById<TextView>(R.id.dayTextView)!!
-             welcome.text = "Hoşgeldin, ${GlobalService.user?.name}"
+
            val recyclerView = view.findViewById<RecyclerView>(R.id.homeLoopRecyclerView)!!
             val fabButton = view.findViewById<com.google.android.material.floatingactionbutton.FloatingActionButton>(R.id.fabAdd)!!
             val categorySpinner = view.findViewById<Spinner>(R.id.categorySpinner)!!
@@ -85,6 +85,7 @@ class HomeFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         lifecycleScope.launch {
             try {
+                welcome.text = "Hoşgeldin, ${GlobalService.user?.name}"
                 tasks = listTasks(GlobalService.userId)
                 val adapter = TaskAdapter(tasks,requireContext())
 

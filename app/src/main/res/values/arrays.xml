@@ -12,6 +12,15 @@
         <item>adım</item>
         <!-- Diğer kategorileri ekleyebilirsiniz -->
     </array>
+    <array name="category_array_2">
+        <item>iş</item>
+        <item>alışveriş</item>
+        <item>spor</item>
+        <item>eğlence</item>
+        <item>diğer</item>
+        <item>adım</item>
+        <!-- Diğer kategorileri ekleyebilirsiniz -->
+    </array>
     <!-- Reply Preference -->
     <string-array name="reply_entries">
         <item>Reply</item>

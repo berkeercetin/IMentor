@@ -2,6 +2,7 @@ package com.example.imentor.auth
 
 import GlobalService
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,8 @@ import com.example.imentor.R
 import com.example.imentor.auth.services.concrates.AuthManager
 import com.example.imentor.entities.User
 import com.example.imentor.interfaces.HideToolbarInterface
+import com.example.imentor.main.AddTask
+import com.example.imentor.main.HomeFragment
 import com.example.imentor.services.concrates.UserManager
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.Identity
@@ -83,12 +86,18 @@ class LoginFragment : Fragment(), HideToolbarInterface {
             login(emailEditText.text.toString(),passwordEditText.text.toString())
         }
         forgotPassword.setOnClickListener {
-            val action =  LoginFragmentDirections.actionLoginFragmentToForgotPasswordFragment()
-            Navigation.findNavController(requireActivity(), R.id.fragmentContainerView).navigate(action)
+            val fragment = ForgotPasswordFragment()
+            val transaction = requireActivity().supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.fragmentContainerView, fragment)
+            transaction.addToBackStack(null)
+            transaction.commit()
         }
         register.setOnClickListener {
-            val action =  LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
-            Navigation.findNavController(requireActivity(), R.id.fragmentContainerView).navigate(action)
+            val fragment = RegisterFragment()
+            val transaction = requireActivity().supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.fragmentContainerView, fragment)
+            transaction.addToBackStack(null)
+            transaction.commit()
         }
 
     }
@@ -105,10 +114,13 @@ class LoginFragment : Fragment(), HideToolbarInterface {
                     GlobalService.user =result.toObject(User::class.java)
                     val mainActivity = activity as MainActivity?
                     mainActivity?.setNavHeader(result.toObject(User::class.java)!!)
-
+                    val fragment = HomeFragment()
+                    val transaction = requireActivity().supportFragmentManager.beginTransaction()
+                    transaction.replace(R.id.fragmentContainerView, fragment)
+                    transaction.addToBackStack(null)
+                    transaction.commit()
                 }
-                val action =  LoginFragmentDirections.actionLoginFragmentToHomeFragment()
-                Navigation.findNavController(requireActivity(), R.id.fragmentContainerView).navigate(action)
+
             }
             .addOnFailureListener{
                 Toast.makeText(requireContext(),it.message.toString(),Toast.LENGTH_SHORT).show()

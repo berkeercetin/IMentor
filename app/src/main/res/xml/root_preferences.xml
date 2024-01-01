@@ -3,22 +3,22 @@
 
     <PreferenceCategory
         app:key="notifications_category"
-        app:title="Notifications">
+        app:title="Bildirimler">
 
         <SwitchPreferenceCompat
             app:key="notifications"
-            app:title="Enable message notifications"/>
+            app:title="Bildirimlere İzin Ver"/>
 
     </PreferenceCategory>
 
     <PreferenceCategory
         app:key="help_category"
-        app:title="Help">
+        app:title="Yardım">
 
         <Preference
             app:key="feedback"
-            app:summary="Report technical issues or suggest new features"
-            app:title="Send feedback"/>
+            app:summary="Teknik sorunları bildirin veya yeni özellikler önerin."
+            app:title="Geribildirim Gönder."/>
 
     </PreferenceCategory>
 
