@@ -59,7 +59,6 @@ class ForgotPasswordFragment : Fragment() {
     private fun forgotPassword(email:String){
         authService.forgotPassword(email).addOnSuccessListener {
             Toast.makeText(requireContext(),"E Posta Gönderildi",Toast.LENGTH_SHORT).show()
-
             val action = ForgotPasswordFragmentDirections.actionForgotPasswordFragmentToLoginFragment()
             Navigation.findNavController(requireActivity(), R.id.fragmentContainerView).navigate(action)
         }

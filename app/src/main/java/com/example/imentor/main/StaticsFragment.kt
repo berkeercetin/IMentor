@@ -69,15 +69,9 @@ class StaticsFragment : Fragment() {
                 entries.add(PieEntry(ratio2, "Tamamlanmadı"))
                 val dataSet = PieDataSet(entries, "Veri Seti")
                 dataSet.setColors(Color.rgb(0, 255, 0), Color.rgb(255, 0, 0))
-                // Grafiği oluşturup veri setini atıyoruz
                 val data = PieData(dataSet)
                 pieChart.data = data
-
-                // Grafiği güncelliyoruz
                 pieChart.invalidate()
-
-
-
             } catch (e: Exception) {
                 // Handle exceptions appropriately
                 Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_LONG).show()

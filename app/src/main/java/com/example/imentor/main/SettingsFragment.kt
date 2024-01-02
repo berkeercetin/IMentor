@@ -20,7 +20,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
             val editor = sharedPreferences.edit()
             editor.putBoolean("notifications", allowNotifications)
             editor.apply()
-
             true
         }
     }

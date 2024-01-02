@@ -23,7 +23,6 @@ import com.google.firebase.messaging.RemoteMessage
 
 
 class MyFirebaseMessagingService: FirebaseMessagingService() {
-    private lateinit var sharedPreferencesUtil: SharedPreferencesUtil
     private val notificationFirestore = com.example.imentor.main.services.concrates.NotificationManager()
 
     override fun onNewToken(token: String) {
@@ -33,7 +32,6 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
 
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
-
         val allowNotifications = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("notifications", true)
         Log.i("cloud", allowNotifications.toString())
         if (allowNotifications) {

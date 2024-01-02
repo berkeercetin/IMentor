@@ -69,31 +69,20 @@ class MainActivity : AppCompatActivity() {
         if (isPermissionGranted()) {
             requestPermission()
         }
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-
         val toolbar: Toolbar = findViewById(R.id.my_toolbar)
         setSupportActionBar(toolbar)
-
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
                 Log.i("FCM_TOKEN", "Fetching FCM registration token failed", task.exception)
                 return@OnCompleteListener
             }
-
             // Get new FCM registration token
             val token = task.result
-
-            // Log and toast
-
             Log.d("FCM_TOKEN1", token)
         })
-
-
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
         // Navigation Drawer'ı ayarlama
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)

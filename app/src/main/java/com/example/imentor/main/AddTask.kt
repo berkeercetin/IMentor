@@ -89,7 +89,8 @@ class AddTask : Fragment() {
                             cal.set(Calendar.DAY_OF_MONTH, day)
                             editTextTime2.setText(SimpleDateFormat("dd/MM/yyyy").format(cal.time))
                         }
-                        DatePickerDialog(requireContext(), dateSetListener, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show()
+                        DatePickerDialog(requireContext(), dateSetListener, cal.get(Calendar.YEAR),
+                            cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show()
                     }
                 }
                 return true
@@ -129,12 +130,6 @@ class AddTask : Fragment() {
             editTextTaskStartTime.setText(task.startDateTime)
             editTextTaskEndTime.setText(task.endDateTime)
             taskId = task.taskID.toString()
-          //  val position = (categorySpinner.adapter as ArrayAdapter<*>).getPosition(task.type as Nothing?)
-           // if (position != -1) {
-            //    categorySpinner.setSelection(position)
-            //} else {
-             //   categorySpinner.setSelection(0)
-           // }
             textView18.text = "Görevi Güncelle"
             buttonAddTask.text = "Görevi Güncelle"
         }

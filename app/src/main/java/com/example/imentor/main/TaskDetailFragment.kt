@@ -119,7 +119,6 @@ class TaskDetailFragment : Fragment() {
                     if(task.complated!!){
                         complateButton.visibility = View.GONE
                     }
-
                     subTasks = listSubTasks(GlobalService.userId, taskId)
                     if (task.type=="adım"){
                         sensorManager = requireContext().getSystemService(Context.SENSOR_SERVICE) as SensorManager

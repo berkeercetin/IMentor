@@ -53,6 +53,7 @@ class LoginFragment : Fragment(), HideToolbarInterface {
     private val authService = AuthManager()
     private val userService = UserManager()
     private lateinit var googleSignInClient: GoogleSignInClient
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth

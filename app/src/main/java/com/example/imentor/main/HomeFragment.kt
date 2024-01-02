@@ -88,7 +88,6 @@ class HomeFragment : Fragment() {
                 welcome.text = "Hoşgeldin, ${GlobalService.user?.name}"
                 tasks = listTasks(GlobalService.userId)
                 val adapter = TaskAdapter(tasks,requireContext())
-
                 recyclerView.adapter = adapter
                 // Both tasks are completed
                 if(adapter.itemCount == 0){

@@ -23,19 +23,15 @@ class AuthManager {
       return  auth.signInWithEmailAndPassword(email, password)
 
     }
-
      fun signup(email: String, password: String) : Task<AuthResult> {
         return  auth.createUserWithEmailAndPassword(email, password)
 
     }
 
-
     fun forgotPassword(email: String) :Task<Void>{
         return auth.sendPasswordResetEmail(email)
     }
 
-    // Google ile giriş yapma
-    // Authenticate with Firebase using the Google account token
     fun firebaseAuthWithGoogle(idToken: String): Task<AuthResult> {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         return auth.signInWithCredential(credential)

@@ -10,7 +10,6 @@ import com.example.imentor.main.entities.Task as MyTask
 
 class TaskManager {
     private val db = FirebaseFirestore.getInstance()
-    private val auth = FirebaseAuth.getInstance()
 
     fun listAllTasksByUser (uid: String): Task<QuerySnapshot> {
         return db.collection("users/$uid/tasks").get()

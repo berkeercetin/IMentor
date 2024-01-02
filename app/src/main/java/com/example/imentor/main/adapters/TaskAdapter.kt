@@ -43,8 +43,6 @@ class TaskAdapter(
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         val task = filteredTaskList[position] // Burada taskList yerine filteredTaskList kullanın
-
-
         // Verileri ViewHolder bileşenlerine aktar
         holder.nameTextView.text = task.name
         holder.explantationTextView.text = task.explanation
@@ -54,7 +52,6 @@ class TaskAdapter(
         } else {
             holder.taskListStatus.text = "Tamamlanmadı"
         }
-
         holder.itemView.setOnClickListener {
             val taskID = task.taskID
             val fragment = TaskDetailFragment()
