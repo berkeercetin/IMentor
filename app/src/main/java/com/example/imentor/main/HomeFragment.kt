@@ -45,22 +45,15 @@ class HomeFragment : Fragment() {
         val activity = requireActivity() as MainActivity
         val toolbar = activity.findViewById<Toolbar>(R.id.my_toolbar)
         toolbar.visibility = View.VISIBLE
-        // Geri tuşuna basıldığında
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 requireActivity().finish()
             }
         }
 
-        // Geri tuşu dinleyicisini ekleyin
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
         return inflater.inflate(R.layout.fragment_home, container, false)
-
-
-
     }
-
-
     @SuppressLint("Range", "SuspiciousIndentation", "SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)

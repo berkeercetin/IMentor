@@ -20,7 +20,4 @@ class UserManager {
         return db.document("/users/$uid").get()
     }
 
-
-
-
 }

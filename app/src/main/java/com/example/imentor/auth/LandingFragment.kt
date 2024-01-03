@@ -5,21 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.example.imentor.MainActivity
 import com.example.imentor.R
-import com.example.imentor.interfaces.HideToolbarInterface
 
 
-/**
- * A simple [Fragment] subclass.
- * Use the [LandingFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class LandingFragment : Fragment(), HideToolbarInterface {
+class LandingFragment : Fragment() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,26 +34,16 @@ class LandingFragment : Fragment(), HideToolbarInterface {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val login = view.findViewById<Button>(R.id.login)
         val register = view.findViewById<Button>(R.id.register)
-
         login.setOnClickListener {
             val action = LandingFragmentDirections.actionLandingFragmentToLoginFragment()
-
             Navigation.findNavController(requireActivity(), R.id.fragmentContainerView).navigate(action)
         }
-
         register.setOnClickListener {
             val action =
                LandingFragmentDirections.actionLandingFragmentToRegisterFragment()
-
             Navigation.findNavController(requireActivity(), R.id.fragmentContainerView).navigate(action)
         }
-
-
-
     }
-
-
 }

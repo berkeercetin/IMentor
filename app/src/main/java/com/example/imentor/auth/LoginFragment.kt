@@ -2,7 +2,6 @@ package com.example.imentor.auth
 
 import GlobalService
 import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,13 +14,10 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
 import com.example.imentor.MainActivity
 import com.example.imentor.R
 import com.example.imentor.auth.services.concrates.AuthManager
 import com.example.imentor.entities.User
-import com.example.imentor.interfaces.HideToolbarInterface
-import com.example.imentor.main.AddTask
 import com.example.imentor.main.HomeFragment
 import com.example.imentor.services.concrates.UserManager
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
@@ -37,16 +33,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.common.api.ApiException
-import com.google.firebase.auth.GoogleAuthProvider
 
 
-/**
- * A simple [Fragment] subclass.
- * Use the [LoginFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class LoginFragment : Fragment(), HideToolbarInterface {
-    // TODO: Rename and change types of parameters
+class LoginFragment : Fragment() {
     private lateinit var oneTapClient: SignInClient
     private lateinit var signInRequest: BeginSignInRequest
     private lateinit var auth: FirebaseAuth;
@@ -57,7 +46,6 @@ class LoginFragment : Fragment(), HideToolbarInterface {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
-
         oneTapClient = Identity.getSignInClient(requireActivity())
         configureGoogleSignIn()
         signInRequest = BeginSignInRequest.builder()

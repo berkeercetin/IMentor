@@ -2,22 +2,13 @@ package com.example.imentor.services.concrates
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.app.Service
 import android.content.Context
-import android.content.Intent
 import android.os.Build
-import android.os.IBinder
 import android.util.Log
-import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.preference.PreferenceManager
-import androidx.preference.SwitchPreferenceCompat
 import com.example.imentor.App
-import com.example.imentor.R
 import com.example.imentor.main.entities.INotification
-import com.example.imentor.main.entities.Task
-import com.example.imentor.main.services.concrates.TaskManager
-import com.example.imentor.util.SharedPreferencesUtil
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 

@@ -34,15 +34,12 @@ class NotificationsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewNotifications)!!
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         lifecycleScope.launch {
             try {
                 Log.i("notFragment", "STARTED")
-
-
                 notifications = listNotification()
                 val adapter = NotificationAdapter(notifications, requireContext())
                 recyclerView.adapter = adapter
@@ -57,7 +54,6 @@ class NotificationsFragment : Fragment() {
     }
 
     private suspend fun listNotification(): List<INotification> {
-
         return notificationFirestore.listAll().await().documents.map {
             it.toObject(INotification::class.java)!!
         }

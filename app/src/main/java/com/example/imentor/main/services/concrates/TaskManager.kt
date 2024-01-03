@@ -8,66 +8,50 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
 import com.example.imentor.main.entities.Task as MyTask
 
-class TaskManager {
+class TaskManager: com.example.imentor.main.services.abstracts.TaskService {
     private val db = FirebaseFirestore.getInstance()
 
-    fun listAllTasksByUser (uid: String): Task<QuerySnapshot> {
+    override fun listAllTasksByUser (uid: String): Task<QuerySnapshot> {
         return db.collection("users/$uid/tasks").get()
     }
 
-    fun getTaskById (uid:String,taskID: String): Task<DocumentSnapshot> {
+    override fun getTaskById (uid:String, taskID: String): Task<DocumentSnapshot> {
         return db.document("users/$uid/tasks/$taskID").get()
     }
 
-    fun getSubTaskById (uid:String,taskID: String , subTaskID:String): Task<DocumentSnapshot> {
+    override fun getSubTaskById (uid:String, taskID: String, subTaskID:String): Task<DocumentSnapshot> {
         return db.document("users/$uid/tasks/$taskID/subTasks/$subTaskID").get()
     }
 
-    fun listSubTasks (uid:String,taskID: String ): Task<QuerySnapshot> {
+    override fun listSubTasks (uid:String, taskID: String ): Task<QuerySnapshot> {
         return db.collection("users/$uid/tasks/$taskID/subTasks").get()
     }
 
-    fun addTask (uid: String, task: MyTask): Task<Void> {
+    override fun addTask (uid: String, task: MyTask): Task<Void> {
         task.taskID = db.collection("users/$uid/tasks").document().id
         task.complated = false
         return db.document("users/$uid/tasks/" + task.taskID).set(task)
     }
 
-    fun updateTask (uid: String, task: MyTask): Task<Void> {
+    override fun updateTask (uid: String, task: MyTask): Task<Void> {
         return db.document("users/$uid/tasks/" + task.taskID).update("taskID", task.taskID,"name", task.name, "explanation", task.explanation, "startDateTime", task.startDateTime, "endDateTime", task.endDateTime,  "type", task.type, "complated", task.complated)
     }
 
-    fun deleteTask (uid: String, taskID: String): Task<Void> {
+    override fun deleteTask (uid: String, taskID: String): Task<Void> {
         return db.document("users/$uid/tasks/$taskID").delete()
     }
 
-    fun addSubTask (uid: String, taskID: String, subTask: SubTask): Task<Void> {
+    override fun addSubTask (uid: String, taskID: String, subTask: SubTask): Task<Void> {
         subTask.subTaskID = db.collection("users/$uid/tasks/$taskID/subTasks").document().id
         return db.document("users/$uid/tasks/$taskID/subTasks/" + subTask.subTaskID).set(subTask)
     }
 
-    fun updateSubTask (uid: String, taskID: String, subTask: MyTask): Task<Void> {
+    override fun updateSubTask (uid: String, taskID: String, subTask: MyTask): Task<Void> {
         return db.document("users/$uid/tasks/$taskID/subTasks/" + subTask.taskID).set(subTask)
     }
 
-    fun deleteSubTask (uid: String, taskID: String, subTaskID: String): Task<Void> {
+    override fun deleteSubTask (uid: String, taskID: String, subTaskID: String): Task<Void> {
         return db.document("users/$uid/tasks/$taskID/subTasks/$subTaskID").delete()
     }
-
-    fun addCounter (uid: String, taskID: String, counter: MyTask): Task<Void> {
-        counter.taskID = db.collection("users/$uid/tasks/$taskID/counters").document().id
-        return db.document("users/$uid/tasks/$taskID/counters/" + counter.taskID).set(counter)
-    }
-
-    fun updateCounter (uid: String, taskID: String, counter: MyTask): Task<Void> {
-        return db.document("users/$uid/tasks/$taskID/counters/" + counter.taskID).set(counter)
-    }
-
-    fun deleteCounter (uid: String, taskID: String, counterID: String): Task<Void> {
-        return db.document("users/$uid/tasks/$taskID/counters/$counterID").delete()
-    }
-
-
-
 
 }

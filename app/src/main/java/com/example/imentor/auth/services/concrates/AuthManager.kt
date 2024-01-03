@@ -16,31 +16,27 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
 
-class AuthManager {
+class AuthManager: AuthService {
     private val db = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
-     fun login(email: String, password: String): Task<AuthResult> {
-      return  auth.signInWithEmailAndPassword(email, password)
-
+    override fun login(email: String, password: String): Task<AuthResult> {
+        return  auth.signInWithEmailAndPassword(email, password)
     }
-     fun signup(email: String, password: String) : Task<AuthResult> {
+
+    override fun signup(email: String, password: String): Task<AuthResult> {
         return  auth.createUserWithEmailAndPassword(email, password)
-
     }
 
-    fun forgotPassword(email: String) :Task<Void>{
+    override fun forgotPassword(email: String): Task<Void> {
         return auth.sendPasswordResetEmail(email)
     }
 
-    fun firebaseAuthWithGoogle(idToken: String): Task<AuthResult> {
+    override fun firebaseAuthWithGoogle(idToken: String): Task<AuthResult> {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         return auth.signInWithCredential(credential)
     }
 
-    fun logout() {
+    override fun logout() {
         return auth.signOut()
     }
-
-
-
 }
